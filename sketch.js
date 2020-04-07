@@ -74,6 +74,9 @@ function init()
         persons.push(new Person());
     time = 0;
 
+
+    patient_zero.pos=[WIDTH/2 + (Math.random()*2-1)*WIDTH/8,HEIGHT/2 + (Math.random()*2-1)*HEIGHT/8];
+
     last_time = time;
 
     healthy=[PEOPLE_LIMIT-1];

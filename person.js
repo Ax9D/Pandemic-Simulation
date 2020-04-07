@@ -55,8 +55,8 @@ class Person {
 
         if(this.state!=states.REMOVED)
         {
-        this.vel[0] += (Math.random() *2 - 1)*walkSpeed*tick_interval;
-        this.vel[1] += (Math.random() *2 - 1)*walkSpeed*tick_interval;
+        this.vel[0] += (random() *2 - 1)*walkSpeed*tick_interval;
+        this.vel[1] += (random() *2 - 1)*walkSpeed*tick_interval;
 
 
         this.clampVelocity();
@@ -64,6 +64,7 @@ class Person {
         this.pos[0] += this.vel[0]*tick_interval;
         this.pos[1] += this.vel[1]*tick_interval;
 
+        
         if (this.pos[0]-drawRad<=0)
         {
             this.pos[0]=drawRad;
@@ -85,6 +86,8 @@ class Person {
             this.pos[1]=HEIGHT-drawRad;
             this.vel[1]=-this.vel[1];
         }
+        //this.pos[0]%=WIDTH;
+        //this.pos[1]%=HEIGHT;
     }
     }
     draw() {

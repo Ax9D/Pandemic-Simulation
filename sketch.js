@@ -37,6 +37,7 @@ function plot() {
     line(xoffset+WIDTH,0,xoffset+WIDTH,HEIGHT);
     line(xoffset+WIDTH,HEIGHT,xoffset+WIDTH*2,HEIGHT);
 
+    /*
     stroke(42, 148, 38);
     for (let i = 0; i < healthy.length - 1; i++)
         line(xoffset + WIDTH + graphIntervalX * i, HEIGHT - graphIntervalY * healthy[i] - yoffset, WIDTH + xoffset + graphIntervalX * (i + 1), HEIGHT - graphIntervalY * healthy[i + 1] - yoffset);
@@ -46,7 +47,26 @@ function plot() {
     stroke(25,98,230);
     for (let i = 0; i < removed.length - 1; i++)
         line(xoffset + WIDTH + graphIntervalX * i, HEIGHT - graphIntervalY * removed[i] - yoffset, WIDTH + xoffset + graphIntervalX * (i + 1), HEIGHT - graphIntervalY * removed[i + 1] - yoffset);
+*/
+    noFill();
 
+    stroke(42, 148, 38);
+    beginShape();
+    for (let i = 0; i < healthy.length - 1; i++)
+        vertex(xoffset+WIDTH+graphIntervalX*i,HEIGHT-graphIntervalY*healthy[i]-yoffset);
+    endShape();
+
+    stroke(224, 76, 76);
+    beginShape();
+    for (let i = 0; i < healthy.length - 1; i++)
+        vertex(xoffset+WIDTH+graphIntervalX*i,HEIGHT-graphIntervalY*infected[i]-yoffset);
+    endShape();
+
+    stroke(25,98,230);
+    beginShape();
+    for (let i = 0; i < healthy.length - 1; i++)
+        vertex(xoffset+WIDTH+graphIntervalX*i,HEIGHT-graphIntervalY*removed[i]-yoffset);
+    endShape();
 }
 function pollData() {
     let inf = 0;

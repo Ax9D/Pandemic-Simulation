@@ -1,6 +1,6 @@
 const WIDTH = 800;
 const HEIGHT = 600;
-const graph_poll_interval = 0.1;
+const graph_poll_interval = 0.5;
 const tick_interval = 0.1;
 
 const PEOPLE_LIMIT = 1000;
@@ -19,7 +19,10 @@ var removed;
 var last_time;
 var paused;
 
+var tahoma;
 
+var deltaTime;
+p5.disableFriendlyErrors = true;
 function plot() {
     let maxPoints = Math.max(Math.max(healthy.length, infected.length), removed.length);
 
@@ -43,6 +46,7 @@ function plot() {
     stroke(25,98,230);
     for (let i = 0; i < removed.length - 1; i++)
         line(xoffset + WIDTH + graphIntervalX * i, HEIGHT - graphIntervalY * removed[i] - yoffset, WIDTH + xoffset + graphIntervalX * (i + 1), HEIGHT - graphIntervalY * removed[i + 1] - yoffset);
+
 }
 function pollData() {
     let inf = 0;
@@ -85,9 +89,12 @@ function init()
 
     paused = true;
 }
+function preload()
+{
+    tahoma=loadFont("tahoma.ttf");
+}
 function setup() {
     createCanvas(WIDTH * 2, HEIGHT+70).parent('canvas');
-
     //Old javascript Hmmmmmm
     let pauseBtn=document.getElementById("pauseBtn");
     pauseBtn.onclick=function(){
@@ -120,6 +127,7 @@ function setup() {
         console.log(infection_distance);
     });
 
+    textFont(tahoma);
     init();
 }
 function update() {
@@ -130,6 +138,8 @@ function update() {
     }
 }
 function draw() {
+        let fps=frameRate();
+        deltaTime=1/fps;
         noStroke();
         background(51);
 
@@ -153,12 +163,12 @@ function draw() {
         plot();
 
 
-        textSize(30);
+        textSize(25);
         noStroke();
 
         textAlign(LEFT);
 
-        text(`Time: ${Math.round(time)} Ptrans: ${infection_prob*100}% Pmort: ${death_prob*100}% Inc Period: ${incubation_period} Inf Radius: ${infection_distance}`,10,HEIGHT+30);
+        text(`Time: ${Math.round(time)} Ptrans: ${Math.round(infection_prob*100)}% Pmort: ${Math.round(death_prob*100)}% Inc Period: ${incubation_period} Inf Rad: ${infection_distance}`,10,HEIGHT+30);
 
         fill(0);
         textSize(30);
@@ -170,16 +180,16 @@ function draw() {
         text(`Healthy: ${curHealthy} Infected: ${curInfected} Deaths: ${PEOPLE_LIMIT-curHealthy-curInfected-curRecov} Recovered: ${curRecov}`, WIDTH + xoffset+10, HEIGHT+30);
 
         fill(42, 148, 38);
-        rect(WIDTH+xoffset+30,HEIGHT+30+10,15,15);
+        rect(WIDTH+xoffset+50,HEIGHT+30+10,15,15);
 
         fill(224, 76, 76);
-        rect(WIDTH+xoffset+30+160,HEIGHT+30+10,15,15);
+        rect(WIDTH+xoffset+50+180,HEIGHT+30+10,15,15);
 
         fill(25,98,230);
-        rect(WIDTH+xoffset+30+160+270,HEIGHT+30+10,15,15);
+        rect(WIDTH+xoffset+50+170+320,HEIGHT+30+10,15,15);
 
 
         textSize(20);
         fill(0);
-        text("FPS:"+Math.round(frameRate()),WIDTH*2-110,20);
+        text("FPS:"+Math.round(fps),WIDTH*2-110,20);
 }
